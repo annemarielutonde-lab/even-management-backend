@@ -10,8 +10,6 @@ const { getFirestore } = require('firebase-admin/firestore');
 const serviceAccount = require('./firebase-keys.json');
 
 
-
-
 // 3. Turn the keys in the ignition using the new 'cert' function
 initializeApp({
    credential: cert(serviceAccount)
@@ -35,14 +33,15 @@ app.get("/", (req, res) => {
 
 // Import our new routes
 const authRoutes = require('./src/routes/authRoutes');
-
+const eventRoutes = require('./src/routes/eventRoutes');
+const ticketRoutes = require('./src/routes/ticketRoutes')
 
 // Tell the server to send any traffic starting with /api/auth to our Waiter
 app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 
 app.listen(3000, () => {
    console.log('Kitchen Manager is awake and listening on Port 3000');
 });
-
-
